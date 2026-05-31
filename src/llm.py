@@ -1,13 +1,15 @@
 import ollama
 
+client = ollama.Client(host="http://host.docker.internal:11434")
 
 def generate_analysis(input_data, predicted_salary: float) -> str:
     experience_map = {0: "Entry", 1: "Mid", 2: "Senior", 3: "Executive"}
     company_size_map = {0: "Small", 1: "Medium", 2: "Large"}
     company_location_map = {0: "Low income country", 1: "Middle income country", 2: "High income country"}
     remote_map = {0: "On-site", 50: "Hybrid", 100: "Fully remote"}
+
     prompt = f"""
-        You are a data analyst specializing in data science compensation.
+    You are a data analyst specializing in data science compensation.
     A salary prediction model has predicted the following:
 
     - Experience Level: {experience_map[input_data.experience_level]}
@@ -23,7 +25,7 @@ def generate_analysis(input_data, predicted_salary: float) -> str:
     2. Which factors are most influencing this salary
     3. One actionable insight for the employee
     """
-    response = ollama.chat(
+    response = client.chat(
         model="llama3.2",
         messages=[{"role": "user", "content": prompt}]
     )
