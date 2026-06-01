@@ -55,7 +55,7 @@ if st.button("Predict Salary"):
         "company_size": company_size
     }
     
-    response = requests.post("http://127.0.0.1:8000/predict", json=payload)
+    response = requests.post("https://salaryprediction-production-3285.up.railway.app/predict", json=payload)
     
     if response.status_code == 200:
         result = response.json()
