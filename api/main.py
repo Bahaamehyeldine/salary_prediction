@@ -13,6 +13,9 @@ def health_check():
 @app.post("/predict")
 def predict(input_data: SalaryInput):
     salary = predict_salary(input_data)
-    analysis = generate_analysis(input_data, salary)
+    try:
+        analysis = generate_analysis(input_data, salary)
+    except Exception:
+        analysis = "LLM analysis unavailable in cloud deployment."
     save_prediction(input_data, salary, analysis)
     return {"predicted_salary_usd": salary, "analysis": analysis, "input_data": input_data.model_dump()}
