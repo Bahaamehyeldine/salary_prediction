@@ -1,0 +1,6 @@
+# Streamlit dashboard (Streamlit Cloud reads this file first because it sits next to dashboard.py).
+streamlit==1.57.0
+requests==2.34.2
+pandas==3.0.3
+supabase==2.30.0
+python-dotenv==1.2.2
