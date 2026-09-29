@@ -1,5 +1,9 @@
 # Data Science Salary Prediction App
 
+[![CI](https://github.com/Bahaamehyeldine/salary_prediction/actions/workflows/ci.yml/badge.svg)](https://github.com/Bahaamehyeldine/salary_prediction/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.11-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 An end-to-end machine learning application that predicts data science salaries based on job details, generates AI-powered analysis using a local LLM, and displays results on a live dashboard.
 
 ## Architecture
@@ -42,6 +46,7 @@ salary_prediction/
 │   ├── raw/
 │   └── processed/
 ├── models/
+├── tests/
 ├── Dockerfile
 └── requirements.txt
 
@@ -77,10 +82,24 @@ curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json"
 
 ## Model Performance
 
-- Algorithm: Decision Tree Regressor (max_depth=4)
-- R2 Score: 0.38
-- MAE: ~$36,000
+Trained in [`notebooks/model_training.ipynb`](notebooks/model_training.ipynb): 80/20 split, tree depth chosen by 5-fold cross-validation on the training split (one-standard-error rule), test split scored once.
+
+| Model | Test R² | Test MAE |
+|---|---|---|
+| Mean baseline | −0.02 | $45,500 |
+| **Decision Tree (max_depth=4), served** | **0.38** | **$34,600** |
+| Decision Tree (unconstrained) | 0.08 | $40,000 |
+| Random Forest (reference) | 0.41 | $33,600 |
+
+With 607 rows and 6 coarse categorical features, salaries are only partly predictable; the shallow tree is kept for interpretability and a small, fast artifact.
+
+## Testing
+
+```bash
+pip install -r requirements.txt
+python -m pytest tests   # API tests; Ollama and Supabase are stubbed
+```
 
 ## Author
 
-Bahaamehyeldine
+**Bahaa Mehye Eddin** · [GitHub](https://github.com/Bahaamehyeldine)

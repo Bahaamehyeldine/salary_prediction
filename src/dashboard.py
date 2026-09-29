@@ -2,6 +2,8 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import streamlit as st
+import requests
+from src.database import supabase
 
 st.set_page_config(page_title="Salary Prediction App", layout="wide")
 st.title("Data Science Salary Predictor")
@@ -43,7 +45,6 @@ company_size = st.selectbox(
     format_func=lambda x: {0: "Small", 1: "Medium", 2: "Large"}[x]
 )       
 
-import requests
 
 if st.button("Predict Salary"):
     payload = {
@@ -69,7 +70,6 @@ if st.button("Predict Salary"):
 st.markdown("---")
 st.markdown("### Past Predictions")
 
-from src.database import supabase
 
 predictions = supabase.table("predictions").select("*").execute().data
 
