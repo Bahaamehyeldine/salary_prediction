@@ -4,7 +4,9 @@ __pycache__/
 *.pyo
 .DS_Store
 *.pkl
-models/
+models/*
+# The trained model ships with the API
+!models/decision_tree_model.pkl
 .ipynb_checkpoints/
 venv/
 .venv/
