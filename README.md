@@ -60,7 +60,9 @@ git clone https://github.com/Bahaamehyeldine/salary_prediction.git
 cd salary_prediction
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt          # API
+pip install -r src/requirements.txt      # dashboard
+pip install -r notebooks/requirements.txt  # only to re-run the notebooks
 
 Add your Supabase credentials to .env file, then:
 
@@ -76,7 +78,7 @@ curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json"
 
 - experience_level: 0=Entry, 1=Mid, 2=Senior, 3=Executive
 - job_title: 0=Data Analyst, 1=Data Architect, 2=Data Engineer, 3=Data Science Manager, 4=Data Scientist, 5=ML Engineer, 6=Other, 7=Research Scientist
-- remote_ratio: 0=On-site, 50=Hybrid, 100=Remote
+- remote_ratio: 0=On-site, 50=Hybrid, 100=Remote (other values are rejected with 422)
 - company_location: 0=Low income, 1=Middle income, 2=High income
 - company_size: 0=Small, 1=Medium, 2=Large
 

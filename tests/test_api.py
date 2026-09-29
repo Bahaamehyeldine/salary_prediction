@@ -41,7 +41,8 @@ def test_predict_survives_llm_outage():
 
 
 @pytest.mark.parametrize("field, value", [("experience_level", 4), ("job_title", -1),
-                                          ("work_year", 2019), ("company_size", 3)])
+                                          ("work_year", 2019), ("company_size", 3),
+                                          ("remote_ratio", 30)])
 def test_out_of_range_inputs_rejected(client, field, value):
     c, _ = client
     assert c.post("/predict", json={**VALID, field: value}).status_code == 422
